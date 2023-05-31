@@ -7,6 +7,7 @@ use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\WishListController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderToFinishController;
 
 use App\Http\Controllers\ReviewController;
 
@@ -86,7 +87,7 @@ Route::group([
         Route::post('/wishlist', [WishListController::class, 'store']);
         Route::get('/wishlist', [WishListController::class, 'index']);
         Route::delete('/wishlist/{id}', [WishListController::class, 'delete']);
-        
+
         Route::post('/orders', [CheckOutController::class, 'checkout']);
 
     });
@@ -97,6 +98,9 @@ Route::get('/products/{id}/relatedProducts', [ProductController::class, 'related
 
 //Mail Route
 Route::post('/contact', [ContactController::class, 'submit']);
+Route::post('/ordertofinish', [OrderToFinishController::class, 'send']);
+
+
 
 
 
