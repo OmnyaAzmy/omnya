@@ -130,4 +130,8 @@ class Product extends Model implements HasMedia
     {
         return $this->hasOne(OrderItem::class);
     }
+    public function ordertofinish()
+    {
+        return $this->hasOne(OrderToFinish::class);
+    }
 }
