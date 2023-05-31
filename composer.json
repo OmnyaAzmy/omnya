@@ -6,12 +6,15 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "fouladgar/laravel-otp": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
+        "ichtrojan/laravel-otp": "^1.4",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/socialite": "^5.6",
         "laravel/tinker": "^2.7",
         "php-open-source-saver/jwt-auth": "^2.0",
+        "spatie/laravel-medialibrary": "^10.7",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {

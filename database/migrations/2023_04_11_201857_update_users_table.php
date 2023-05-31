@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('admins', function (Blueprint $table) {
-            $table->string('phone')->after('email');
+        Schema::table('users',function(Blueprint $table)
+        {
+            $table->tinyInteger('varifed')->default(0);
         });
     }
 
@@ -25,8 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('admins', function (Blueprint $table) {
-            //
-        });
+        //
     }
 };

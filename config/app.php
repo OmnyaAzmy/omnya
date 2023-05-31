@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\IsSeller;
 use Illuminate\Support\Facades\Facade;
 use Tymon\JWTAuth\Providers\LaravelServiceProvider;
 
@@ -185,6 +186,8 @@ return [
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
 
+        Ichtrojan\Otp\OtpServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
@@ -197,6 +200,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        //Ichtrojan\Otp\OtpServiceProvider::class,
 
     ],
 
@@ -215,6 +220,9 @@ return [
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+
+        'Otp' => Ichtrojan\Otp\Otp::class,
+
     ])->toArray(),
 
 ];

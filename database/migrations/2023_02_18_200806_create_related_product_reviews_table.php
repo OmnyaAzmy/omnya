@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->boolean('role')->default('0');
+        Schema::create('related_product_reviews', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('product_id')->constrained('related_products');
+            $table->string('review');
+            $table->string('star'); 
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('related_product_reviews');
     }
 };

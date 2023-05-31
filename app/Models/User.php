@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Order;
+use App\Models\Review;
+use Ichtrojan\Otp\Models\Otp;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
@@ -27,6 +30,8 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'phone',
         'password',
+        'email_verified_at',
+        'varifed',
     ];
 
     /**
@@ -114,5 +119,29 @@ class User extends Authenticatable implements JWTSubject
     public function scopeIsAdmin($query)
     {
         return $query->where('type', '=', 2);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function wishlist()
+    {
+        return $this->hasMany(WishList::class);
+    }
+
+    public function order()
+    {
+        return $this->hasMany(Order::class);
     }
 }

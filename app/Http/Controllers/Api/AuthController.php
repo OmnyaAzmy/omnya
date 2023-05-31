@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\EmailVerificationNotification;
 
 class AuthController extends Controller
 {
@@ -29,6 +30,9 @@ class AuthController extends Controller
             'email'    => 'required|string|email',
             'password' => 'required|string|min:6',
         ]);
+
+        
+
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
@@ -37,6 +41,7 @@ class AuthController extends Controller
         }
         return $this->createNewToken($token);
     }
+
     /**
      * Register a User.
      *
@@ -44,14 +49,16 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
+        //dd($request);
         $validator = Validator::make($request->all(), [
-            'type'       => 'sometimes|required|integer|in:0,1', // allow customer or seller only
+            'type'       => 'sometimes|required|integer|in:0,1',   // allow customer or seller only
             'first_name' => 'required|string|between:2,100',
             'last_name'  => 'nullable|string|between:2,100',
-            'email'      => 'required|string|email|max:100|unique:users',
-            'phone'      => 'required|string|min:6',
+            'email'      => 'required|max:100|unique:users',
+            'phone'      => 'required|string|min:6|unique:users',
             'password'   => 'required|string|confirmed|min:6',
         ]);
+        //dd($validator->validated());
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
@@ -60,6 +67,9 @@ class AuthController extends Controller
             ['password' => bcrypt($request->password)]
         ));
         $user->refresh();
+
+        $user->notify(new EmailVerificationNotification());
+
         return response()->json([
             'message' => 'User successfully registered',
             'user' => $user
@@ -82,7 +92,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
+            'expires_in' => auth()->factory()->getTTL(),
             'user' => auth()->user()
         ]);
     }
